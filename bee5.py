@@ -8,7 +8,7 @@ width=400
 height=600
 screen = pygame.display.set_mode((width,height))
   
-#load the images in dict
+
 images={}
 images["bg"] = pygame.image.load("bg.png").convert_alpha()
 images["base"] = pygame.image.load("base.png").convert_alpha()
@@ -40,8 +40,7 @@ class Pipe:
     def display(self):
         screen.blit(images["pipe"],self.topPipe)
         screen.blit(images["pipe"],self.bottomPipe)
-        #pygame.draw.rect(screen,(250,150,50),pygame.Rect(200,self.gap,100,100))
-    
+        
     def move(self):
         self.topPipe.x-=5
         self.bottomPipe.x-=5    
@@ -55,6 +54,9 @@ class Pipe:
 bee=Bee()
 pipe1= Pipe(200)
 pipe2= Pipe(420)
+
+#Create a variable state to hold the game state
+
 while True:    
     screen.fill((50,150,255))
     screen.blit(images["bg"],[0,0])
@@ -71,12 +73,17 @@ while True:
     if groundx< -330:
         groundx=0
 
+    #Check for collision between pipe1 and bee. If collided then change the game state to over.
+
     pipe1.move()
     pipe2.move()
     
     bee.display()  
     pipe1.display() 
     pipe2.display() 
+    
+    #Create if block for over state.
+    
     screen.blit(images["base"],[groundx,550])
    
     pygame.display.update()
